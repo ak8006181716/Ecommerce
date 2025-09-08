@@ -27,10 +27,27 @@ mongoose
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const allowedOrigins = [
+  "https://ecommerce-3qw6.vercel.app", // production
+  "https://ecommerce-3qw6-mr0lu2bmu-ak8006181716s-projects.vercel.app", // preview
+];
 
 app.use(
   cors({
-    origin: "https://ecommerce-3qw6.vercel.app/",
+     origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    //  origin: (origin, callback) => {
+    //   if (!origin || /vercel\.app$/.test(origin)) {
+    //     callback(null, true);
+    //   } else {
+    //     callback(new Error("Not allowed by CORS"));
+    //   }
+    // },
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
