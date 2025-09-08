@@ -30,7 +30,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://ecommerce-topaz-one.vercel.app"],
+    origin: "https://ecommerce-3qw6.vercel.app/",
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
