@@ -2,7 +2,6 @@ import CommonForm from "@/components/common/form";
 import { useToast } from "@/components/ui/use-toast";
 import { registerFormControls } from "@/config";
 import { registerUser } from "@/store/auth-slice";
-import { Description } from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -28,12 +27,12 @@ function AuthRegister() {
         });
         navigate("/auth/login");
       } else {
-        toast(data?.payload?.message || "registation failed",{
+        toast({
+          title: data?.payload?.message,
           variant: "destructive",
         });
       }
     });
-   
   }
 
   console.log(formData);

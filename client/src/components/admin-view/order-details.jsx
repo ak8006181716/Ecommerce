@@ -5,6 +5,7 @@ import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
 import { Badge } from "../ui/badge";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types"
 import {
   getAllOrdersForAdmin,
   getOrderDetailsForAdmin,
@@ -41,6 +42,9 @@ function AdminOrderDetailsView({ orderDetails }) {
       }
     });
   }
+  AdminOrderDetailsView.propTypes = {
+  orderDetails: PropTypes.object.isRequired,
+};
 
   return (
     <DialogContent className="sm:max-w-[600px]">
@@ -90,7 +94,9 @@ function AdminOrderDetailsView({ orderDetails }) {
             <ul className="grid gap-3">
               {orderDetails?.cartItems && orderDetails?.cartItems.length > 0
                 ? orderDetails?.cartItems.map((item) => (
-                    <li className="flex items-center justify-between">
+                    <li
+                    key={item._id||item.title}
+                    className="flex items-center justify-between">
                       <span>Title: {item.title}</span>
                       <span>Quantity: {item.quantity}</span>
                       <span>Price: ${item.price}</span>

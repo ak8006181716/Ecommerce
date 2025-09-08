@@ -31,7 +31,7 @@ function ShoppingOrders() {
 
   useEffect(() => {
     dispatch(getAllOrdersByUserId(user?.id));
-  }, [dispatch,user?.id]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (orderDetails !== null) setOpenDetailsDialog(true);
@@ -60,7 +60,7 @@ function ShoppingOrders() {
           <TableBody>
             {orderList && orderList.length > 0
               ? orderList.map((orderItem) => (
-                  <TableRow key={orderItem?._id}>
+                  <TableRow>
                     <TableCell>{orderItem?._id}</TableCell>
                     <TableCell>{orderItem?.orderDate.split("T")[0]}</TableCell>
                     <TableCell>
