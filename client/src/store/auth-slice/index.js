@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { data } from "autoprefixer";
 import axios from "axios";
 
 const initialState = {
@@ -33,6 +34,7 @@ export const loginUser = createAsyncThunk(
         formData,
         { withCredentials: true }
       );
+      
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || "Login failed");
