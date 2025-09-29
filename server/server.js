@@ -29,7 +29,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const allowedOrigins = [
   "https://ecommerce-3qw6.vercel.app", // production
-  "https://ecommerce-3qw6-mr0lu2bmu-ak8006181716s-projects.vercel.app", // preview
+  "https://ecommerce-3qw6-git-main-ak8006181716s-projects.vercel.app", // preview
+  "https://ecommerce-3qw6-2k5ba98gg-ak8006181716s-projects.vercel.app/",
   "http://localhost:5173"
 ];
 
