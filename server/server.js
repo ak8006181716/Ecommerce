@@ -22,8 +22,11 @@ require('dotenv').config({ path: './.env' });
 
 mongoose
   .connect(process.env.MONGODB_URL)
-  .then(() => console.log("MongoDB connected"))
-  .catch((error) => console.log(error));
+  .then(() => {
+    console.log("Databse connected successfull");
+    
+  })
+  .catch((error) => {});
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -79,4 +82,7 @@ app.use("/api/common/feature", commonFeatureRouter);
 app.get("/",(req,res)=>{
   res.send("hello from server")
 })
-app.listen(PORT, () => console.log(`Server is now running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server is now running on port${PORT}`);
+  
+});

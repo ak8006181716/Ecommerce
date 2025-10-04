@@ -12,7 +12,6 @@ export const getAllOrdersForAdmin = createAsyncThunk(
     const response = await axios.get(
       `${import.meta.env.VITE_BACKEND_URL}/api/admin/orders/get`
     );
-    console.log(response)
 
     return response.data;
   }
@@ -48,7 +47,6 @@ const adminOrderSlice = createSlice({
   initialState,
   reducers: {
     resetOrderDetails: (state) => {
-      console.log("resetOrderDetails");
 
       state.orderDetails = null;
     },
