@@ -5,8 +5,11 @@ const cors = require("cors");
 const authRouter = require("./routes/auth/auth-routes");
 const adminProductsRouter = require("./routes/admin/products-routes");
 const adminOrderRouter = require("./routes/admin/order-routes");
+const adminSellerRouter = require("./routes/admin/seller-routes");
 
 const shopProductsRouter = require("./routes/shop/products-routes");
+const sellerProductsRouter = require("./routes/seller/products-routes");
+const sellerOrderRouter = require("./routes/seller/order-routes");
 const shopCartRouter = require("./routes/shop/cart-routes");
 const shopAddressRouter = require("./routes/shop/address-routes");
 const shopOrderRouter = require("./routes/shop/order-routes");
@@ -33,7 +36,8 @@ const PORT = process.env.PORT || 5000;
 const allowedOrigins = [
   "https://ecommerce-self-pi-99.vercel.app", // production
   "https://ecommerce-gn1tgfofu-ak8006181716s-projects.vercel.app", // preview,
-  "http://localhost:5174"
+  "http://localhost:5174",
+  "http://localhost:5173"
 ];
 
 app.use(
@@ -69,6 +73,10 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/admin/products", adminProductsRouter);
 app.use("/api/admin/orders", adminOrderRouter);
+app.use("/api/admin/sellers", adminSellerRouter);
+
+app.use("/api/seller/products", sellerProductsRouter);
+app.use("/api/seller/orders", sellerOrderRouter);
 
 app.use("/api/shop/products", shopProductsRouter);
 app.use("/api/shop/cart", shopCartRouter);

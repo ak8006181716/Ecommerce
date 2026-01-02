@@ -11,6 +11,10 @@ const ProductSchema = new mongoose.Schema(
     salePrice: Number,
     totalStock: Number,
     averageReview: Number,
+    sellerId: {
+      type: String,
+      default: null,
+    },
   },
   { timestamps: true }
 );

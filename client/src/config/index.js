@@ -39,6 +39,50 @@ export const loginFormControls = [
   },
 ];
 
+export const sellerFormControls = [
+  {
+    name: "userName",
+    label: "Seller Name",
+    placeholder: "Enter seller name",
+    componentType: "input",
+    type: "text",
+  },
+  {
+    name: "email",
+    label: "Email",
+    placeholder: "Enter seller email",
+    componentType: "input",
+    type: "email",
+  },
+  {
+    name: "password",
+    label: "Password",
+    placeholder: "Enter password",
+    componentType: "input",
+    type: "password",
+  },
+  {
+    name: "businessType",
+    label: "Business Type",
+    componentType: "select",
+    options: [
+      { id: "retail", label: "Retail" },
+      { id: "wholesale", label: "Wholesale" },
+      { id: "manufacturer", label: "Manufacturer" },
+      { id: "distributor", label: "Distributor" },
+      { id: "ecommerce", label: "E-commerce" },
+      { id: "other", label: "Other" },
+    ],
+  },
+  {
+    name: "mobileNumber",
+    label: "Mobile Number",
+    placeholder: "Enter mobile number",
+    componentType: "input",
+    type: "tel",
+  },
+];
+
 export const addProductFormElements = [
   {
     label: "Title",

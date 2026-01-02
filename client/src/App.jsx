@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import AuthLayout from "./components/auth/layout";
 import AuthLogin from "./pages/auth/login";
 import AuthRegister from "./pages/auth/register";
@@ -7,6 +7,11 @@ import AdminDashboard from "./pages/admin-view/dashboard";
 import AdminProducts from "./pages/admin-view/products";
 import AdminOrders from "./pages/admin-view/orders";
 import AdminFeatures from "./pages/admin-view/features";
+import AdminSellers from "./pages/admin-view/sellers";
+import SellerLayout from "./components/seller-view/layout";
+import SellerDashboard from "./pages/seller-view/dashboard";
+import SellerProducts from "./pages/seller-view/products";
+import SellerOrders from "./pages/seller-view/orders";
 import ShoppingLayout from "./components/shopping-view/layout";
 import NotFound from "./pages/not-found";
 import ShoppingHome from "./pages/shopping-view/home";
@@ -40,15 +45,7 @@ function App() {
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       <Routes>
-        <Route
-          path="/"
-          element={
-            <CheckAuth
-              isAuthenticated={isAuthenticated}
-              user={user}
-            ></CheckAuth>
-          }
-        />
+        <Route path="/" element={<Navigate to="/shop/home" replace />} />
         <Route
           path="/auth"
           element={
@@ -72,6 +69,19 @@ function App() {
           <Route path="products" element={<AdminProducts />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="features" element={<AdminFeatures />} />
+          <Route path="sellers" element={<AdminSellers />} />
+        </Route>
+        <Route
+          path="/seller"
+          element={
+            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+              <SellerLayout />
+            </CheckAuth>
+          }
+        >
+          <Route path="dashboard" element={<SellerDashboard />} />
+          <Route path="products" element={<SellerProducts />} />
+          <Route path="orders" element={<SellerOrders />} />
         </Route>
         <Route
           path="/shop"
