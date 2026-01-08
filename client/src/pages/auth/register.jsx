@@ -5,6 +5,8 @@ import { registerUser } from "@/store/auth-slice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const initialState = {
   userName: "",
@@ -37,7 +39,16 @@ function AuthRegister() {
 
   
   return (
-    <div className="mx-auto w-full max-w-md space-y-6">
+    <div className="relative mx-auto w-full max-w-md space-y-6">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute top-0 right-0"
+        onClick={() => navigate("/shop/home")}
+      >
+        <X className="h-5 w-5" />
+        <span className="sr-only">Close</span>
+      </Button>
       <div className="text-center">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
           Create new account

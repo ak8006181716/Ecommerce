@@ -4,7 +4,9 @@ import { loginFormControls } from "@/config";
 import { loginUser } from "@/store/auth-slice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const initialState = {
   email: "",
@@ -14,6 +16,7 @@ const initialState = {
 function AuthLogin() {
   const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { toast } = useToast();
 
   function onSubmit(event) {
@@ -34,7 +37,16 @@ function AuthLogin() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-md space-y-6">
+    <div className="relative mx-auto w-full max-w-md space-y-6">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute top-0 right-0"
+        onClick={() => navigate("/shop/home")}
+      >
+        <X className="h-5 w-5" />
+        <span className="sr-only">Close</span>
+      </Button>
       <div className="text-center">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
           Sign in to your account

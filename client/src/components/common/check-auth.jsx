@@ -52,16 +52,17 @@ function CheckAuth({ isAuthenticated, user, children }) {
   if (
     isAuthenticated &&
     user?.role !== "admin" &&
-    location.pathname.includes("/admin")
+    location.pathname.startsWith("/admin")
   ) {
     return <Navigate to="/unauth-page" />;
   }
 
-  // Restrict seller routes to seller only (but not /admin/sellers)
+  // Restrict seller routes to seller only (exclude /admin/sellers which is for admins)
   if (
     isAuthenticated &&
     user?.role !== "seller" &&
-    location.pathname.startsWith("/seller")
+    location.pathname.startsWith("/seller") &&
+    !location.pathname.startsWith("/admin")
   ) {
     return <Navigate to="/unauth-page" />;
   }
@@ -70,7 +71,7 @@ function CheckAuth({ isAuthenticated, user, children }) {
   if (
     isAuthenticated &&
     user?.role === "admin" &&
-    (location.pathname.includes("/shop") || location.pathname.startsWith("/seller"))
+    (location.pathname.includes("/shop") || (location.pathname.startsWith("/seller") && !location.pathname.startsWith("/admin")))
   ) {
     return <Navigate to="/admin/dashboard" />;
   }
