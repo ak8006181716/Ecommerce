@@ -2,6 +2,7 @@ import { Card, CardContent, CardFooter } from "../ui/card";
 import { Button } from "../ui/button";
 import { brandOptionsMap, categoryOptionsMap } from "@/config";
 import { Badge } from "../ui/badge";
+import LazyImage from "../common/lazy-image";
 
 function ShoppingProductTile({
   product,
@@ -12,7 +13,7 @@ function ShoppingProductTile({
     <Card className="w-full max-w-sm mx-auto group hover:shadow-xl transition-all duration-300 border border-gray-200 bg-white overflow-hidden">
       <div onClick={() => handleGetProductDetails(product?._id)} className="cursor-pointer">
         <div className="relative overflow-hidden bg-gray-100">
-          <img
+          <LazyImage
             src={product?.image}
             alt={product?.title}
             className="w-full h-[280px] md:h-[300px] object-cover group-hover:scale-110 transition-transform duration-500"

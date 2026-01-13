@@ -1,5 +1,6 @@
 import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter } from "../ui/card";
+import LazyImage from "../common/lazy-image";
 
 function SellerProductTile({
   product,
@@ -12,7 +13,7 @@ function SellerProductTile({
     <Card className="w-full max-w-sm mx-auto">
       <div>
         <div className="relative">
-          <img
+          <LazyImage
             src={product?.image}
             alt={product?.title}
             className="w-full h-[300px] object-cover rounded-t-lg"

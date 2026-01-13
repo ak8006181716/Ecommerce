@@ -50,11 +50,11 @@ function MenuItems() {
   }
 
   return (
-    <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
+    <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-4 lg:gap-6 lg:flex-row">
       {shoppingViewHeaderMenuItems.map((menuItem) => (
         <Label
           onClick={() => handleNavigate(menuItem)}
-          className="text-sm font-medium cursor-pointer"
+          className="text-sm md:text-base font-medium cursor-pointer text-gray-700 hover:text-primary transition-colors duration-200 py-2 lg:py-0"
           key={menuItem.id}
         >
           {menuItem.label}
@@ -89,18 +89,20 @@ function HeaderRightContent() {
 
 
   return (
-    <div className="flex lg:items-center lg:flex-row flex-col gap-4">
+    <div className="flex lg:items-center lg:flex-row flex-col gap-3 lg:gap-4">
       <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
         <Button
           onClick={() => setOpenCartSheet(true)}
           variant="outline"
           size="icon"
-          className="relative"
+          className="relative hover:bg-gray-100 transition-colors"
         >
-          <ShoppingCart className="w-6 h-6" />
-          <span className="absolute top-[-5px] right-[2px] font-bold text-sm">
-            {cartItems?.items?.length || 0}
-          </span>
+          <ShoppingCart className="w-5 h-5 md:w-6 md:h-6" />
+          {cartItems?.items?.length > 0 && (
+            <span className="absolute -top-1 -right-1 flex items-center justify-center w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full">
+              {cartItems?.items?.length || 0}
+            </span>
+          )}
           <span className="sr-only">User cart</span>
         </Button>
         <UserCartWrapper
@@ -116,8 +118,8 @@ function HeaderRightContent() {
       {isAuthenticated && user ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Avatar className="bg-black cursor-pointer">
-              <AvatarFallback className="bg-black text-white font-extrabold">
+            <Avatar className="bg-gradient-to-br from-gray-900 to-gray-700 cursor-pointer hover:ring-2 hover:ring-primary transition-all duration-200">
+              <AvatarFallback className="bg-gradient-to-br from-gray-900 to-gray-700 text-white font-extrabold">
                 {user?.userName[0].toUpperCase()}
               </AvatarFallback>
             </Avatar>
@@ -141,7 +143,7 @@ function HeaderRightContent() {
           onClick={handleProfileClick}
           variant="outline"
           size="icon"
-          className="bg-black hover:bg-black/80"
+          className="bg-gradient-to-br from-gray-900 to-gray-700 hover:from-gray-800 hover:to-gray-600 text-white border-0"
         >
           <User className="w-5 h-5 text-white" />
           <span className="sr-only">Profile</span>
@@ -155,29 +157,37 @@ function ShoppingHeader() {
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background">
-      <div className="flex h-16 items-center justify-between px-4 md:px-6">
-        <Link to="/shop/home" className="flex items-center gap-2">
-          <HousePlug className="h-6 w-6" />
-          <span className="font-bold">Ecommerce</span>
+    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-sm shadow-sm">
+      <div className="flex h-16 md:h-18 items-center justify-between px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <Link to="/shop/home" className="flex items-center gap-2 group">
+          <div className="p-1.5 rounded-lg bg-gradient-to-br from-gray-900 to-gray-700 group-hover:from-gray-800 group-hover:to-gray-600 transition-all duration-300">
+            <HousePlug className="h-5 w-5 md:h-6 md:w-6 text-white" />
+          </div>
+          <span className="font-bold text-lg md:text-xl bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+            Ecommerce
+          </span>
         </Link>
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="lg:hidden">
+            <Button variant="outline" size="icon" className="lg:hidden hover:bg-gray-100">
               <Menu className="h-6 w-6" />
               <span className="sr-only">Toggle header menu</span>
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-full max-w-xs">
-            <MenuItems />
-            <HeaderRightContent />
+            <div className="space-y-6 mt-6">
+              <MenuItems />
+              <div className="pt-4 border-t">
+                <HeaderRightContent />
+              </div>
+            </div>
           </SheetContent>
         </Sheet>
-        <div className="hidden lg:block">
+        <div className="hidden lg:flex lg:items-center lg:gap-8">
           <MenuItems />
         </div>
 
-        <div className="hidden lg:block">
+        <div className="hidden lg:flex lg:items-center">
           <HeaderRightContent />
         </div>
       </div>

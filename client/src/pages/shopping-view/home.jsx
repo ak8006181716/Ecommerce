@@ -109,6 +109,8 @@ function ShoppingHome() {
       fetchAllFilteredProducts({
         filterParams: {},
         sortParams: "price-lowtohigh",
+        page: 1,
+        append: false,
       })
     );
   }, [dispatch]);
@@ -121,7 +123,7 @@ function ShoppingHome() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Hero Banner Section */}
-      <div className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         {featureImageList && featureImageList.length > 0
           ? featureImageList.map((slide, index) => (
               <div
@@ -150,25 +152,25 @@ function ShoppingHome() {
         
         {/* Hero Text Overlay */}
         {featureImageList && featureImageList.length > 0 && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center md:justify-start px-4 md:px-12">
-            <div className="text-white max-w-2xl space-y-4">
-              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-4">
-                <TrendingUp className="w-5 h-5" />
-                <span className="text-sm font-semibold">New Collection</span>
+          <div className="absolute inset-0 z-20 flex items-center justify-center md:justify-start px-4 sm:px-6 md:px-12">
+            <div className="text-white max-w-2xl space-y-4 text-center md:text-left">
+              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 sm:px-4 py-2 rounded-full mb-4">
+                <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-xs sm:text-sm font-semibold">New Collection</span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 Fashion for Every
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-400">
                   Season & Style
                 </span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-200">
+              <p className="text-base sm:text-lg md:text-xl text-gray-200">
                 Discover the latest trends and exclusive deals on premium fashion
               </p>
-              <div className="flex gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
                 <Button 
                   size="lg" 
-                  className="bg-white text-black hover:bg-gray-100 text-lg px-8 py-6"
+                  className="bg-white text-black hover:bg-gray-100 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto"
                   onClick={() => navigate("/shop/listing")}
                 >
                   Shop Now
@@ -176,7 +178,7 @@ function ShoppingHome() {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="border-2 border-white text-black hover:bg-white/10 text-lg px-8 py-6"
+                  className="border-2 border-white text-white hover:bg-white/10 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto"
                   onClick={() => navigate("/shop/listing")}
                 >
                   Explore
@@ -237,17 +239,17 @@ function ShoppingHome() {
         )}
       </div>
       {/* Categories Section */}
-      <section className="py-8 bg-gradient-to-b from-white to-gray-500">
+      <section className="py-12 md:py-16 bg-gradient-to-b from-white to-gray-500">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold pb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          <div className="text-center mb-10 md:mb-12">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold pb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
               Shop by Category
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
               Explore our wide range of categories and find exactly what you're looking for
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
             {categoriesWithIcon.map((categoryItem) => (
               <Card
                 key={categoryItem.id}
@@ -274,17 +276,17 @@ function ShoppingHome() {
       </section>
 
       {/* Brands Section */}
-      <section className="py-8 bg-gradient-to-b from-white to-gray-500">
+      <section className="py-12 md:py-16 bg-gradient-to-b from-white to-gray-500">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          <div className="text-center mb-10 md:mb-12">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
               Popular Brands
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
               Shop from your favorite brands and discover quality products
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
             {brandsWithIcon.map((brandItem) => (
               <Card
                 key={brandItem.id}
@@ -306,17 +308,17 @@ function ShoppingHome() {
       </section>
 
       {/* Featured Products Section */}
-      <section className="py-16 bg-gradient-to-b from-white to-gray-500">
+      <section className="py-12 md:py-16 bg-gradient-to-b from-white to-gray-500">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-10 md:mb-12">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4">
               <Sparkles className="w-4 h-4" />
               <span className="text-sm font-semibold">Featured Collection</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
               Featured Products
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
               Handpicked products just for you
             </p>
           </div>
