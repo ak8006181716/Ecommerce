@@ -178,7 +178,7 @@ function ShoppingHome() {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="border-2 border-white text-white hover:bg-white/10 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto"
+                  className="border-2 border-white text-black hover:bg-white/10 hover:text-white text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto"
                   onClick={() => navigate("/shop/listing")}
                 >
                   Explore
