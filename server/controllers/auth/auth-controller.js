@@ -5,21 +5,35 @@ require("dotenv").config();
 
 //register
 const registerUser = async (req, res) => {
-  const { userName, email, password } = req.body;
+  const { userName, email, password, role } = req.body;
 
   try {
-    const checkUser = await User.findOne({ email });
-    if (checkUser)
+    if (!userName || !email || !password) {
       return res.json({
         success: false,
-        message: "User Already exists with the same email! Please try again",
+        message: "Please provide username, email, and password",
       });
+    }
+
+    const checkUser = await User.findOne({
+      $or: [{ email }, { userName }],
+    });
+    if (checkUser) {
+      return res.json({
+        success: false,
+        message:
+          checkUser.email === email
+            ? "User Already exists with the same email! Please try again"
+            : "Username is already taken! Please choose another one",
+      });
+    }
 
     const hashPassword = await bcrypt.hash(password, 12);
     const newUser = new User({
       userName,
       email,
       password: hashPassword,
+      role: role || "user",
     });
 
     await newUser.save();
@@ -28,9 +42,10 @@ const registerUser = async (req, res) => {
       message: "Registration successful",
     });
   } catch (e) {
+    console.error("Register Error:", e);
     res.status(500).json({
       success: false,
-      message: "Some error occured",
+      message: e.message || "Some error occurred during registration",
     });
   }
 };
@@ -40,11 +55,18 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    if (!email || !password) {
+      return res.json({
+        success: false,
+        message: "Please provide both email and password",
+      });
+    }
+
     const checkUser = await User.findOne({ email });
     if (!checkUser)
       return res.json({
         success: false,
-        message: "User doesn't exists! Please register first",
+        message: "User doesn't exist! Please register first",
       });
 
     const checkPasswordMatch = await bcrypt.compare(
@@ -68,11 +90,13 @@ const loginUser = async (req, res) => {
       { expiresIn: "60m" }
     );
 
+    const isProduction = process.env.NODE_ENV === "production";
+
     res
       .cookie("token", token, {
         httpOnly: true,
-        secure: true,
-        sameSite: "None", 
+        secure: isProduction,
+        sameSite: isProduction ? "None" : "lax",
         maxAge: 60 * 60 * 1000,
       })
       .json({
@@ -96,7 +120,12 @@ const loginUser = async (req, res) => {
 //logout
 
 const logoutUser = (req, res) => {
-  res.clearCookie("token").json({
+  const isProduction = process.env.NODE_ENV === "production";
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "None" : "lax",
+  }).json({
     success: true,
     message: "Logged out successfully!",
   });

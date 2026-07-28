@@ -6,12 +6,12 @@ const getFilteredProducts = async (req, res) => {
 
     let filters = {};
 
-    if (category.length) {
-      filters.category = { $in: category.split(",") };
+    if (category && category.length) {
+      filters.category = { $in: Array.isArray(category) ? category : category.split(",") };
     }
 
-    if (brand.length) {
-      filters.brand = { $in: brand.split(",") };
+    if (brand && brand.length) {
+      filters.brand = { $in: Array.isArray(brand) ? brand : brand.split(",") };
     }
 
     let sort = {};
@@ -52,7 +52,8 @@ const getFilteredProducts = async (req, res) => {
     const products = await Product.find(filters)
       .sort(sort)
       .skip(skip)
-      .limit(limitNumber);
+      .limit(limitNumber)
+      .lean();
 
     // Calculate pagination metadata
     const totalPages = Math.ceil(totalProducts / limitNumber);

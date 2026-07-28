@@ -1,10 +1,9 @@
 import { FileIcon, UploadCloudIcon, XIcon } from "lucide-react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import axios from "axios";
-import { Skeleton } from "../ui/skeleton";
 
 function ProductImageUpload({
   imageFile,
@@ -17,7 +16,7 @@ function ProductImageUpload({
   isCustomStyling = false,
 }) {
   const inputRef = useRef(null);
-
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   function handleImageFileChange(event) {
     const selectedFile = event.target.files?.[0];
@@ -37,6 +36,7 @@ function ProductImageUpload({
 
   function handleRemoveImage() {
     setImageFile(null);
+    setUploadProgress(0);
     if (inputRef.current) {
       inputRef.current.value = "";
     }
@@ -44,15 +44,32 @@ function ProductImageUpload({
 
   async function uploadImageToCloudinary() {
     setImageLoadingState(true);
-    const data = new FormData();
-    data.append("my_file", imageFile);
-    const response = await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/api/admin/products/upload-image`,
-      data
-    );
+    setUploadProgress(0);
+    try {
+      const data = new FormData();
+      data.append("my_file", imageFile);
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/products/upload-image`,
+        data,
+        {
+          withCredentials: true,
+          onUploadProgress: (progressEvent) => {
+            if (progressEvent.total) {
+              const percent = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+              );
+              setUploadProgress(percent);
+            }
+          },
+        }
+      );
 
-    if (response?.data?.success) {
-      setUploadedImageUrl(response.data.result.url);
+      if (response?.data?.success) {
+        setUploadedImageUrl(response.data.result.url);
+        setImageLoadingState(false);
+      }
+    } catch (error) {
+      console.error("Image upload failed:", error);
       setImageLoadingState(false);
     }
   }
@@ -92,7 +109,21 @@ function ProductImageUpload({
             <span>Drag & drop or click to upload image</span>
           </Label>
         ) : imageLoadingState ? (
-          <Skeleton className="h-10 bg-gray-100" />
+          <div className="space-y-2 py-2 px-1">
+            <div className="flex items-center justify-between text-xs font-semibold text-gray-700">
+              <span className="flex items-center gap-1.5">
+                <UploadCloudIcon className="w-4 h-4 text-primary animate-bounce" />
+                Uploading image...
+              </span>
+              <span className="text-primary font-bold">{uploadProgress}%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden shadow-inner">
+              <div
+                className="bg-primary h-2.5 rounded-full transition-all duration-300 ease-out"
+                style={{ width: `${uploadProgress}%` }}
+              ></div>
+            </div>
+          </div>
         ) : (
           <div className="flex items-center justify-between">
             <div className="flex items-center">

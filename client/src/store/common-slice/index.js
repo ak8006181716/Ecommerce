@@ -22,7 +22,10 @@ export const addFeatureImage = createAsyncThunk(
   async (image) => {
     const response = await axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/api/common/feature/add`,
-      { image }
+      { image },
+      {
+        withCredentials: true,
+      }
     );
 
     return response.data;

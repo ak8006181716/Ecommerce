@@ -35,7 +35,7 @@ function SellerOrderDetailsView({ orderDetails }) {
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Order Total (Your Products)</p>
-            <Label>${orderDetails?.sellerOrderTotal || 0}</Label>
+            <Label>₹{orderDetails?.sellerOrderTotal || 0}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Payment method</p>
@@ -75,7 +75,7 @@ function SellerOrderDetailsView({ orderDetails }) {
                     >
                       <span>Title: {item.title}</span>
                       <span>Quantity: {item.quantity}</span>
-                      <span>Price: ${item.price}</span>
+                      <span>Price: ₹{item.price}</span>
                     </li>
                   ))
                 : (

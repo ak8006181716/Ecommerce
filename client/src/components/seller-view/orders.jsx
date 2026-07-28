@@ -74,7 +74,7 @@ function SellerOrdersView() {
                         {orderItem?.orderStatus}
                       </Badge>
                     </TableCell>
-                    <TableCell>${orderItem?.sellerOrderTotal || 0}</TableCell>
+                    <TableCell>₹{orderItem?.sellerOrderTotal || 0}</TableCell>
                     <TableCell>
                       <Dialog
                         open={openDetailsDialog}

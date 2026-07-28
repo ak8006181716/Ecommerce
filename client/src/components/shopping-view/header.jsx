@@ -23,6 +23,7 @@ import UserCartWrapper from "./cart-wrapper";
 import { useEffect, useState } from "react";
 import { fetchCartItems } from "@/store/shop/cart-slice";
 import { Label } from "../ui/label";
+import { ModeToggle } from "../common/theme-toggle";
 
 function MenuItems() {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ function MenuItems() {
       {shoppingViewHeaderMenuItems.map((menuItem) => (
         <Label
           onClick={() => handleNavigate(menuItem)}
-          className="text-sm md:text-base font-medium cursor-pointer text-gray-700 hover:text-primary transition-colors duration-200 py-2 lg:py-0"
+          className="text-sm md:text-base font-medium cursor-pointer text-slate-700 dark:text-slate-200 hover:text-amber-500 dark:hover:text-amber-400 transition-colors duration-200 py-2 lg:py-0"
           key={menuItem.id}
         >
           {menuItem.label}
@@ -90,12 +91,13 @@ function HeaderRightContent() {
 
   return (
     <div className="flex lg:items-center lg:flex-row flex-col gap-3 lg:gap-4">
+      <ModeToggle />
       <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
         <Button
           onClick={() => setOpenCartSheet(true)}
           variant="outline"
           size="icon"
-          className="relative hover:bg-gray-100 transition-colors"
+          className="relative hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
         >
           <ShoppingCart className="w-5 h-5 md:w-6 md:h-6" />
           {cartItems?.items?.length > 0 && (
@@ -118,8 +120,8 @@ function HeaderRightContent() {
       {isAuthenticated && user ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Avatar className="bg-gradient-to-br from-gray-900 to-gray-700 cursor-pointer hover:ring-2 hover:ring-primary transition-all duration-200">
-              <AvatarFallback className="bg-gradient-to-br from-gray-900 to-gray-700 text-white font-extrabold">
+            <Avatar className="bg-gradient-to-br from-slate-900 to-slate-700 cursor-pointer hover:ring-2 hover:ring-amber-400 transition-all duration-200">
+              <AvatarFallback className="bg-gradient-to-br from-slate-900 to-slate-700 text-white font-extrabold">
                 {user?.userName[0].toUpperCase()}
               </AvatarFallback>
             </Avatar>
@@ -143,7 +145,7 @@ function HeaderRightContent() {
           onClick={handleProfileClick}
           variant="outline"
           size="icon"
-          className="bg-gradient-to-br from-gray-900 to-gray-700 hover:from-gray-800 hover:to-gray-600 text-white border-0"
+          className="bg-gradient-to-br from-slate-900 to-slate-700 hover:from-slate-800 hover:to-slate-600 text-white border-0"
         >
           <User className="w-5 h-5 text-white" />
           <span className="sr-only">Profile</span>
@@ -157,13 +159,13 @@ function ShoppingHeader() {
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-sm shadow-sm">
-      <div className="flex h-16 md:h-18 items-center justify-between px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 text-slate-900 dark:text-slate-100 backdrop-blur-sm shadow-sm transition-colors duration-300">
+      <div className="flex h-16 md:h-20 items-center justify-between px-4 sm:px-8 lg:px-12 xl:px-16 w-full">
         <Link to="/shop/home" className="flex items-center gap-2 group">
-          <div className="p-1.5 rounded-lg bg-gradient-to-br from-gray-900 to-gray-700 group-hover:from-gray-800 group-hover:to-gray-600 transition-all duration-300">
-            <HousePlug className="h-5 w-5 md:h-6 md:w-6 text-white" />
+          <div className="p-1.5 rounded-lg bg-gradient-to-br from-slate-900 to-slate-700 dark:from-amber-400 dark:to-orange-500 group-hover:scale-105 transition-all duration-300">
+            <HousePlug className="h-5 w-5 md:h-6 md:w-6 text-white dark:text-slate-950" />
           </div>
-          <span className="font-bold text-lg md:text-xl bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          <span className="font-bold text-lg md:text-xl bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
             Ecommerce
           </span>
         </Link>

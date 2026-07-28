@@ -150,7 +150,7 @@ function AdminSellers() {
                       colSpan={5}
                       className="text-center text-muted-foreground"
                     >
-                      No sellers found. Click "Add Seller" to create your first seller.
+                      No sellers found. Click &quot;Add Seller&quot; to create your first seller.
                     </TableCell>
                   </TableRow>
                 )}

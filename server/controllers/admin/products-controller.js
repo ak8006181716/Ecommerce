@@ -107,9 +107,11 @@ const editProduct = async (req, res) => {
     findProduct.price = price === "" ? 0 : price || findProduct.price;
     findProduct.salePrice =
       salePrice === "" ? 0 : salePrice || findProduct.salePrice;
-    findProduct.totalStock = totalStock || findProduct.totalStock;
+    findProduct.totalStock =
+      totalStock !== undefined && totalStock !== "" ? totalStock : findProduct.totalStock;
     findProduct.image = image || findProduct.image;
-    findProduct.averageReview = averageReview || findProduct.averageReview;
+    findProduct.averageReview =
+      averageReview !== undefined ? averageReview : findProduct.averageReview;
 
     await findProduct.save();
     res.status(200).json({

@@ -106,8 +106,8 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
 
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>
-      <DialogContent className="grid grid-cols-2 gap-8 sm:p-12 max-h-[90vh] overflow-y-auto max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw]">
-        <div className="relative overflow-hidden rounded-lg">
+      <DialogContent className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:p-12 max-h-[90vh] overflow-y-auto max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw] bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-slate-200 dark:border-slate-800">
+        <div className="relative overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-800">
           <LazyImage
             src={productDetails?.image}
             alt={productDetails?.title}
@@ -116,22 +116,22 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
         </div>
         <div className="">
           <div>
-            <h1 className="text-3xl font-extrabold">{productDetails?.title}</h1>
-            <p className="text-muted-foreground text-2xl mb-5 mt-4">
+            <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">{productDetails?.title}</h1>
+            <p className="text-slate-600 dark:text-slate-300 text-base md:text-lg mb-5 mt-4">
               {productDetails?.description}
             </p>
           </div>
           <div className="flex items-center justify-between">
             <p
-              className={`text-3xl font-bold text-primary ${
-                productDetails?.salePrice > 0 ? "line-through" : ""
+              className={`text-3xl font-bold ${
+                productDetails?.salePrice > 0 ? "line-through text-slate-400" : "text-slate-900 dark:text-slate-100"
               }`}
             >
-              ${productDetails?.price}
+              ₹{productDetails?.price}
             </p>
             {productDetails?.salePrice > 0 ? (
-              <p className="text-2xl font-bold text-muted-foreground">
-                ${productDetails?.salePrice}
+              <p className="text-2xl font-bold text-red-600 dark:text-red-400">
+                ₹{productDetails?.salePrice}
               </p>
             ) : null}
           </div>
@@ -139,18 +139,18 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
             <div className="flex items-center gap-0.5">
               <StarRatingComponent rating={averageReview} />
             </div>
-            <span className="text-muted-foreground">
+            <span className="text-slate-500 dark:text-slate-400">
               ({averageReview.toFixed(2)})
             </span>
           </div>
           <div className="mt-5 mb-5">
             {productDetails?.totalStock === 0 ? (
-              <Button className="w-full opacity-60 cursor-not-allowed">
+              <Button className="w-full opacity-60 cursor-not-allowed bg-slate-400 dark:bg-slate-800 text-white">
                 Out of Stock
               </Button>
             ) : (
               <Button
-                className="w-full"
+                className="w-full bg-slate-950 dark:bg-amber-400 hover:bg-slate-800 dark:hover:bg-amber-500 text-white dark:text-slate-950 font-bold py-6"
                 onClick={() =>
                   handleAddToCart(
                     productDetails?._id,
@@ -162,37 +162,37 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
               </Button>
             )}
           </div>
-          <Separator />
-          <div className="max-h-[300px] overflow-auto">
-            <h2 className="text-xl font-bold mb-4">Reviews</h2>
-            <div className="grid gap-6">
+          <Separator className="my-4 bg-slate-200 dark:bg-slate-800" />
+          <div className="max-h-[300px] overflow-auto custom-scrollbar pr-2 space-y-4">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">Reviews</h2>
+            <div className="grid gap-3">
               {reviews && reviews.length > 0 ? (
                 reviews.map((reviewItem) => (
-                  <div key={reviewItem.id} className="flex gap-4">
-                    <Avatar className="w-10 h-10 border">
-                      <AvatarFallback>
+                  <div key={reviewItem.id} className="flex gap-4 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-800">
+                    <Avatar className="w-10 h-10 border border-slate-200 dark:border-slate-700">
+                      <AvatarFallback className="bg-gradient-to-br from-slate-900 to-slate-700 dark:from-amber-400 dark:to-orange-500 text-white dark:text-slate-950 font-bold">
                         {reviewItem?.userName[0].toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                     <div className="grid gap-1">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-bold">{reviewItem?.userName}</h3>
+                        <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm sm:text-base">{reviewItem?.userName}</h3>
                       </div>
                       <div className="flex items-center gap-0.5">
                         <StarRatingComponent rating={reviewItem?.reviewValue} />
                       </div>
-                      <p className="text-muted-foreground">
+                      <p className="text-slate-600 dark:text-slate-300 text-sm mt-1">
                         {reviewItem.reviewMessage}
                       </p>
                     </div>
                   </div>
                 ))
               ) : (
-                <h1>No Reviews</h1>
+                <p className="text-slate-500 dark:text-slate-400 text-sm italic">No reviews yet. Be the first to write one!</p>
               )}
             </div>
-            <div className="mt-10 flex-col flex gap-2">
-              <Label>Write a review</Label>
+            <div className="mt-6 flex flex-col gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800">
+              <Label className="font-bold text-slate-900 dark:text-slate-100 text-sm sm:text-base">Write a review</Label>
               <div className="flex gap-1">
                 <StarRatingComponent
                   rating={rating}
@@ -203,13 +203,15 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                 name="reviewMsg"
                 value={reviewMsg}
                 onChange={(event) => setReviewMsg(event.target.value)}
-                placeholder="Write a review..."
+                placeholder="Share your thoughts about this product..."
+                className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-slate-200 dark:border-slate-700 focus:border-amber-400 placeholder:text-slate-400 dark:placeholder:text-slate-500"
               />
               <Button
                 onClick={handleAddReview}
                 disabled={reviewMsg.trim() === ""}
+                className="w-full bg-slate-950 dark:bg-amber-400 hover:bg-slate-800 dark:hover:bg-amber-500 text-white dark:text-slate-950 font-bold py-2.5 transition-colors disabled:opacity-50"
               >
-                Submit
+                Submit Review
               </Button>
             </div>
           </div>

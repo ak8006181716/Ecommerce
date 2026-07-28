@@ -17,7 +17,7 @@ const initialState = {
 
 export const fetchAllFilteredProducts = createAsyncThunk(
   "/products/fetchAllProducts",
-  async ({ filterParams, sortParams, page = 1, append = false }) => {
+  async ({ filterParams = {}, sortParams = "", page = 1, append = false } = {}) => {
     const query = new URLSearchParams({
       ...filterParams,
       sortBy: sortParams,
@@ -65,7 +65,7 @@ const shoppingProductSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllFilteredProducts.pending, (state, action) => {
-        if (action.meta.arg.append) {
+        if (action.meta?.arg?.append) {
           state.isLoadingMore = true;
         } else {
           state.isLoading = true;
@@ -75,23 +75,23 @@ const shoppingProductSlice = createSlice({
         state.isLoading = false;
         state.isLoadingMore = false;
         
-        if (action.payload.append) {
+        if (action.payload?.append) {
           // Append new products to existing list
-          state.productList = [...state.productList, ...action.payload.data];
+          state.productList = [...state.productList, ...(action.payload?.data || [])];
         } else {
           // Replace product list (new search/filter)
-          state.productList = action.payload.data;
+          state.productList = action.payload?.data || [];
         }
         
         // Update pagination info
-        if (action.payload.pagination) {
+        if (action.payload?.pagination) {
           state.pagination = action.payload.pagination;
         }
       })
       .addCase(fetchAllFilteredProducts.rejected, (state, action) => {
         state.isLoading = false;
         state.isLoadingMore = false;
-        if (!action.meta.arg.append) {
+        if (!action.meta?.arg?.append) {
           state.productList = [];
         }
       })

@@ -79,7 +79,7 @@ const deleteProduct = async (req, res) => {
     }
 
     // Check if the product belongs to this seller
-    if (product.sellerId !== sellerId) {
+    if (product.sellerId?.toString() !== sellerId?.toString()) {
       return res.status(403).json({
         success: false,
         message: "You can only delete your own products",
@@ -127,7 +127,7 @@ const updateProduct = async (req, res) => {
     }
 
     // Check if the product belongs to this seller
-    if (product.sellerId !== sellerId) {
+    if (product.sellerId?.toString() !== sellerId?.toString()) {
       return res.status(403).json({
         success: false,
         message: "You can only update your own products",
@@ -140,7 +140,8 @@ const updateProduct = async (req, res) => {
     product.brand = brand || product.brand;
     product.price = price === "" ? 0 : price || product.price;
     product.salePrice = salePrice === "" ? 0 : salePrice || product.salePrice;
-    product.totalStock = totalStock || product.totalStock;
+    product.totalStock =
+      totalStock !== undefined && totalStock !== "" ? totalStock : product.totalStock;
     product.image = image || product.image;
     product.averageReview = averageReview !== undefined ? averageReview : product.averageReview;
 

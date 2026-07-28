@@ -12,15 +12,15 @@ function ProductFilter({ filters, handleFilter }) {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg border border-gray-200 sticky top-20 overflow-hidden">
-      <div className="p-5 md:p-6 border-b border-gray-200 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white">
+    <div className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl shadow-lg border border-slate-200 dark:border-slate-800 sticky top-20 overflow-hidden transition-colors duration-300">
+      <div className="p-5 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white">
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2 bg-white/10 rounded-lg backdrop-blur-sm">
-            <Filter className="w-5 h-5" />
+            <Filter className="w-5 h-5 text-amber-400" />
           </div>
           <div>
-            <h2 className="text-lg md:text-xl font-bold">Filters</h2>
-            <p className="text-xs text-gray-300 mt-0.5">Refine your search</p>
+            <h2 className="text-lg md:text-xl font-bold text-white">Filters</h2>
+            <p className="text-xs text-slate-300 mt-0.5">Refine your search</p>
           </div>
         </div>
       </div>
@@ -31,11 +31,11 @@ function ProductFilter({ filters, handleFilter }) {
             <Fragment key={keyItem}>
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm md:text-base font-bold text-gray-900 capitalize">
+                  <h3 className="text-sm md:text-base font-bold text-slate-900 dark:text-slate-100 capitalize">
                     {keyItem}
                   </h3>
                   {activeCount > 0 && (
-                    <span className="bg-primary text-white text-xs font-bold rounded-full px-2 py-0.5">
+                    <span className="bg-amber-500 text-slate-950 text-xs font-bold rounded-full px-2 py-0.5">
                       {activeCount}
                     </span>
                   )}
@@ -52,15 +52,15 @@ function ProductFilter({ filters, handleFilter }) {
                         key={option.id}
                         className={`flex font-medium items-center gap-3 cursor-pointer transition-all duration-200 py-2 px-2 rounded-lg ${
                           isChecked 
-                            ? "bg-primary/10 text-primary border border-primary/20" 
-                            : "hover:bg-gray-50 hover:text-gray-900 text-gray-700"
+                            ? "bg-amber-500/10 dark:bg-amber-400/20 text-amber-600 dark:text-amber-400 border border-amber-500/20 dark:border-amber-400/30" 
+                            : "hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300"
                         }`}
                       >
                         <Checkbox
                           checked={isChecked}
                           onCheckedChange={() => handleFilter(keyItem, option.id)}
                           className={`border-2 ${
-                            isChecked ? "border-primary bg-primary" : "border-gray-300"
+                            isChecked ? "border-amber-500 bg-amber-500 dark:border-amber-400 dark:bg-amber-400 text-slate-950" : "border-slate-300 dark:border-slate-700"
                           }`}
                         />
                         <span className="text-sm flex-1">{option.label}</span>
@@ -70,7 +70,7 @@ function ProductFilter({ filters, handleFilter }) {
                 </div>
               </div>
               {index < Object.keys(filterOptions).length - 1 && (
-                <Separator className="my-4 bg-gray-200" />
+                <Separator className="my-4 bg-slate-200 dark:bg-slate-800" />
               )}
             </Fragment>
           );

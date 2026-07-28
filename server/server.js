@@ -19,9 +19,8 @@ const shopReviewRouter = require("./routes/shop/review-routes");
 const commonFeatureRouter = require("./routes/common/feature-routes");
 require('dotenv').config({ path: './.env' });
 
-//create a database connection -> u can also
-//create a separate file for this and then import/use that file here
-
+const app = express();
+const PORT = process.env.PORT || 5000;
 
 mongoose
   .connect(process.env.MONGODB_URL)
@@ -36,9 +35,6 @@ mongoose
   .catch((error) => {console.log("Database connection failed", error); 
     process.exit(1);
   });
-
-const app = express();
-const PORT = process.env.PORT || 5000;
 const allowedOrigins = [
   "https://ecommerce-self-pi-99.vercel.app", // production
   "https://ecommerce-gn1tgfofu-ak8006181716s-projects.vercel.app", // preview,
@@ -91,7 +87,10 @@ app.use("/api/shop/order", shopOrderRouter);
 app.use("/api/shop/search", shopSearchRouter);
 app.use("/api/shop/review", shopReviewRouter);
 
+const { seedProducts } = require("./controllers/common/seed-controller");
+
 app.use("/api/common/feature", commonFeatureRouter);
+app.get("/api/seed-products", seedProducts);
 app.get("/",(req,res)=>{
   res.send("hello from server")
 })

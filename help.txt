@@ -1,0 +1,14 @@
+mongodb_username="ankitk8006_db_user"
+password ="LPREpnOycYMJyOrM"
+cloudinary cloud name= du4rexf1h
+cloudinary api key =868726442625586
+cloudinary api secret =bBbVuEFPP8wqiDezJcyq_LcYEwo
+cloudinary api environment variable = CLOUDINARY_URL=cloudinary://868726442625586:bBbVuEFPP8wqiDezJcyq_LcYEwo@du4rexf1h
+PAYPAL_Sandbox URL=https://sandbox.paypal.com
+PAYPAL_Email=sb-w25un46083687@personal.example.com
+PAYPAL_PASSWORD={=4i/Tk3
+LINK=>"https://ecommerce-self-pi-99.vercel.app/"
+Admin=> ankitk821848@gmail.com 
+Admin_pass =>123456789
+Seller => ram.test@gmail.com
+Seller_pass =>12345678

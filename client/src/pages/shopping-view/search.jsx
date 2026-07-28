@@ -25,8 +25,9 @@ function SearchProducts() {
   const { cartItems } = useSelector((state) => state.shopCart);
   const { toast } = useToast();
   useEffect(() => {
+    let timeoutId;
     if (keyword && keyword.trim() !== "" && keyword.trim().length > 3) {
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         setSearchParams(new URLSearchParams(`?keyword=${keyword}`));
         dispatch(getSearchResults(keyword));
       }, 1000);
@@ -34,7 +35,11 @@ function SearchProducts() {
       setSearchParams(new URLSearchParams(`?keyword=${keyword}`));
       dispatch(resetSearchResults());
     }
-  }, [keyword]);
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [keyword, dispatch, setSearchParams]);
 
   function handleAddtoCart(getCurrentProductId, getTotalStock) {
     let getCartItems = cartItems.items || [];
@@ -82,24 +87,25 @@ function SearchProducts() {
 
 
   return (
-    <div className="container mx-auto md:px-6 px-4 py-8">
+    <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-8 md:py-12 bg-background text-foreground min-h-screen transition-colors duration-300">
       <div className="flex justify-center mb-8">
-        <div className="w-full flex items-center">
+        <div className="w-full flex items-center max-w-3xl mx-auto">
           <Input
             value={keyword}
             name="keyword"
             onChange={(event) => setKeyword(event.target.value)}
-            className="py-6"
+            className="py-6 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-slate-200 dark:border-slate-800 shadow-sm"
             placeholder="Search Products..."
           />
         </div>
       </div>
       {!searchResults.length ? (
-        <h1 className="text-5xl font-extrabold">No result found!</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-center text-slate-500 dark:text-slate-400 py-12">No results found</h1>
       ) : null}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {searchResults.map((item) => (
           <ShoppingProductTile
+            key={item?._id}
             handleAddtoCart={handleAddtoCart}
             product={item}
             handleGetProductDetails={handleGetProductDetails}

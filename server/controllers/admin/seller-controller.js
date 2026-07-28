@@ -88,7 +88,13 @@ const getSellerOrders = async (req, res) => {
     // Calculate total orders count and total revenue
     const totalOrders = sellerOrders.length;
     const totalRevenue = sellerOrders.reduce((sum, order) => {
-      return sum + (order.totalAmount || 0);
+      const sellerItems = order.cartItems.filter((item) =>
+        productIds.includes(item.productId)
+      );
+      const sellerOrderTotal = sellerItems.reduce((itemSum, item) => {
+        return itemSum + parseFloat(item.price) * item.quantity;
+      }, 0);
+      return sum + sellerOrderTotal;
     }, 0);
 
     res.status(200).json({

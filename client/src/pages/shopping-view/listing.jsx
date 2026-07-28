@@ -176,25 +176,25 @@ function ShoppingListing() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white py-8 md:py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white py-8 md:py-12 w-full border-b border-slate-800">
+        <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="w-6 h-6 text-yellow-400" />
-                <h1 className="text-3xl md:text-4xl font-bold">Discover Products</h1>
+                <Sparkles className="w-6 h-6 text-amber-400" />
+                <h1 className="text-3xl md:text-4xl font-bold text-white">Discover Products</h1>
               </div>
-              <p className="text-gray-300 text-sm md:text-base">
+              <p className="text-slate-300 text-sm md:text-base">
                 Find exactly what you&apos;re looking for
               </p>
             </div>
             {pagination.totalProducts > 0 && (
               <div className="flex items-center gap-4">
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2 border border-white/20">
-                  <div className="text-2xl md:text-3xl font-bold">{pagination.totalProducts}</div>
-                  <div className="text-xs text-gray-300">Total Products</div>
+                  <div className="text-2xl md:text-3xl font-bold text-white">{pagination.totalProducts}</div>
+                  <div className="text-xs text-slate-300">Total Products</div>
                 </div>
               </div>
             )}
@@ -202,7 +202,7 @@ function ShoppingListing() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+      <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-6 md:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 md:gap-8">
           {/* Filter Sidebar - Hidden on mobile, shown in sheet */}
           <div className="hidden lg:block">
@@ -215,13 +215,13 @@ function ShoppingListing() {
               <SheetTrigger asChild>
                 <Button 
                   variant="outline" 
-                  className="w-full justify-between bg-white hover:bg-gray-50 shadow-sm border-2"
+                  className="w-full justify-between bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-slate-100 shadow-sm border border-slate-200 dark:border-slate-800"
                 >
                   <div className="flex items-center gap-2">
                     <Filter className="h-4 w-4" />
                     <span>Filters</span>
                     {activeFiltersCount > 0 && (
-                      <span className="bg-primary text-white text-xs font-bold rounded-full px-2 py-0.5">
+                      <span className="bg-amber-500 text-slate-950 text-xs font-bold rounded-full px-2 py-0.5">
                         {activeFiltersCount}
                       </span>
                     )}
@@ -236,21 +236,21 @@ function ShoppingListing() {
           </div>
 
           {/* Products Section */}
-          <div className="bg-white w-full rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+          <div className="bg-white dark:bg-slate-900 w-full rounded-xl shadow-lg border border-slate-200 dark:border-slate-800 overflow-hidden transition-colors duration-300">
             {/* Header with filters and sort */}
-            <div className="p-4 md:p-6 border-b border-gray-200 bg-gradient-to-r from-white via-gray-50 to-white">
+            <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-r from-slate-50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900">
               <div className="flex flex-col gap-4">
                 {/* Top row: Title and Sort */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg">
-                      <Grid3x3 className="w-5 h-5 text-primary" />
+                    <div className="p-2 bg-amber-500/10 dark:bg-amber-400/20 rounded-lg">
+                      <Grid3x3 className="w-5 h-5 text-amber-500 dark:text-amber-400" />
                     </div>
                     <div>
-                      <h2 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                      <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-slate-100">
                         All Products
                       </h2>
-                      <p className="text-xs text-gray-500 mt-0.5">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                         {pagination.totalProducts > 0 
                           ? `Showing ${productList?.length || 0} of ${pagination.totalProducts} products`
                           : `${productList?.length || 0} ${productList?.length === 1 ? 'Product' : 'Products'}`
@@ -263,19 +263,20 @@ function ShoppingListing() {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="flex items-center gap-2 hover:bg-gray-50 border-2 shadow-sm"
+                        className="flex items-center gap-2 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-700 shadow-sm"
                       >
                         <ArrowUpDownIcon className="h-4 w-4" />
                         <span className="hidden sm:inline">Sort by</span>
                         <span className="sm:hidden">Sort</span>
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-[200px]">
+                    <DropdownMenuContent align="end" className="w-[200px] bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">
                       <DropdownMenuRadioGroup value={sort} onValueChange={handleSort}>
                         {sortOptions.map((sortItem) => (
                           <DropdownMenuRadioItem
                             value={sortItem.id}
                             key={sortItem.id}
+                            className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800"
                           >
                             {sortItem.label}
                           </DropdownMenuRadioItem>
@@ -287,20 +288,20 @@ function ShoppingListing() {
 
                 {/* Active Filters */}
                 {activeFiltersCount > 0 && (
-                  <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-gray-200">
-                    <span className="text-xs font-semibold text-gray-600">Active Filters:</span>
+                  <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+                    <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Active Filters:</span>
                     {Object.entries(filters).map(([key, values]) =>
                       values?.map((value) => {
                         const option = filterOptions[key]?.find(opt => opt.id === value);
                         return option ? (
                           <div
                             key={`${key}-${value}`}
-                            className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-medium border border-primary/20"
+                            className="inline-flex items-center gap-1.5 bg-amber-500/10 dark:bg-amber-400/20 text-amber-700 dark:text-amber-300 px-3 py-1 rounded-full text-xs font-medium border border-amber-500/20 dark:border-amber-400/30"
                           >
                             <span>{option.label}</span>
                             <button
                               onClick={() => handleFilter(key, value)}
-                              className="hover:bg-primary/20 rounded-full p-0.5 transition-colors"
+                              className="hover:bg-amber-500/20 rounded-full p-0.5 transition-colors"
                             >
                               <X className="w-3 h-3" />
                             </button>
