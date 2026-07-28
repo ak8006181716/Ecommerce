@@ -166,7 +166,7 @@ function ShoppingHeader() {
             <HousePlug className="h-5 w-5 md:h-6 md:w-6 text-white dark:text-slate-950" />
           </div>
           <span className="font-bold text-lg md:text-xl bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
-            Ecommerce
+            SmartWear
           </span>
         </Link>
         <Sheet>

@@ -32,23 +32,20 @@ import { useToast } from "@/components/ui/use-toast";
 import ProductDetailsDialog from "@/components/shopping-view/product-details";
 import { getFeatureImages } from "@/store/common-slice";
 
-const defaultBanners = [
+const defaultTextSlides = [
   {
-    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1000&q=75&auto=format",
     badge: "✨ Summer Collection 2026",
     title: "Elevate Your Style Every Day",
     highlight: "Exclusive Trends",
     description: "Discover curated designer wear, premium footwear, and accessories tailored for your unique aesthetic.",
   },
   {
-    image: "https://images.unsplash.com/photo-1460353581641-37bafab0fa85?w=1000&q=75&auto=format",
     badge: "🔥 Flash Sale • Up to 50% Off",
     title: "Unmatched Performance & Comfort",
     highlight: "New Footwear Drop",
     description: "Step up your game with top-tier athletic sneakers, activewear, and street fashion essentials.",
   },
   {
-    image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1000&q=75&auto=format",
     badge: "💎 Premium Accessories",
     title: "Luxury Essentials Redefined",
     highlight: "Timeless Quality",
@@ -130,16 +127,17 @@ function ShoppingHome() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const slidesToRender =
-    featureImageList && featureImageList.length > 0
-      ? featureImageList.map((item, index) => ({
-          image: item.image,
-          badge: defaultBanners[index % defaultBanners.length].badge,
-          title: defaultBanners[index % defaultBanners.length].title,
-          highlight: defaultBanners[index % defaultBanners.length].highlight,
-          description: defaultBanners[index % defaultBanners.length].description,
-        }))
-      : defaultBanners;
+  const hasFeatureImages = featureImageList && featureImageList.length > 0;
+
+  const slidesToRender = hasFeatureImages
+    ? featureImageList.map((item, index) => ({
+        image: item.image,
+        badge: defaultTextSlides[index % defaultTextSlides.length].badge,
+        title: defaultTextSlides[index % defaultTextSlides.length].title,
+        highlight: defaultTextSlides[index % defaultTextSlides.length].highlight,
+        description: defaultTextSlides[index % defaultTextSlides.length].description,
+      }))
+    : defaultTextSlides;
 
   function handleNavigateToListingPage(getCurrentItem, section) {
     sessionStorage.removeItem("filters");
@@ -203,23 +201,33 @@ function ShoppingHome() {
     <div className="flex flex-col min-h-screen bg-background text-foreground transition-colors duration-300">
       {/* Hero Banner Section */}
       <div className="relative w-full h-[520px] sm:h-[620px] md:h-[700px] lg:h-[760px] overflow-hidden bg-slate-950">
-        {slidesToRender.map((slide, index) => (
-          <div
-            key={slide.image || index}
-            className={`${
-              index === currentSlide ? "opacity-100 scale-100 z-10" : "opacity-0 scale-105 z-0"
-            } absolute inset-0 transition-all duration-1000 ease-in-out`}
-          >
-            <img
-              src={slide.image}
-              alt={`Hero Banner ${index + 1}`}
-              className="w-full h-full object-cover object-center filter brightness-[0.85]"
-            />
-            {/* Multi-stage Overlay Gradients */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-transparent md:w-3/4"></div>
+        {hasFeatureImages ? (
+          slidesToRender.map((slide, index) => (
+            <div
+              key={slide.image || index}
+              className={`${
+                index === currentSlide ? "opacity-100 scale-100 z-10" : "opacity-0 scale-105 z-0"
+              } absolute inset-0 transition-all duration-1000 ease-in-out`}
+            >
+              <img
+                src={slide.image}
+                alt={`Hero Banner ${index + 1}`}
+                className="w-full h-full object-cover object-center filter brightness-[0.85]"
+              />
+              {/* Multi-stage Overlay Gradients */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-transparent md:w-3/4"></div>
+            </div>
+          ))
+        ) : (
+          /* Premium Dark Mesh Canvas Background when no images are uploaded */
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
+            <div className="absolute -top-32 -left-32 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-rose-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+            <div className="absolute -bottom-32 left-1/3 w-80 h-80 bg-orange-500/15 rounded-full blur-3xl"></div>
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30"></div>
           </div>
-        ))}
+        )}
 
         {/* Hero Content Box */}
         <div className="absolute inset-0 z-20 flex items-center px-6 sm:px-12 lg:px-20">

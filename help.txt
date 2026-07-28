@@ -1,5 +1,6 @@
-mongodb_username="ankitk8006_db_user"
-password ="LPREpnOycYMJyOrM"
+mongodb_username="ankitkumar800618_db_user"
+password ="gF4vq6DcPnRYE7LY"
+mongoDbURL=mongodb+srv://ankitk8006_db_user:Ankit8006@02@full-stack.j73pru7.mongodb.net/?appName=full-stack
 cloudinary cloud name= du4rexf1h
 cloudinary api key =868726442625586
 cloudinary api secret =bBbVuEFPP8wqiDezJcyq_LcYEwo

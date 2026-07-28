@@ -17,7 +17,7 @@ function AuthLayout() {
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
             Welcome to{" "}
             <span className="bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
-              ECommerce
+              SmartWear
             </span>
           </h1>
           <p className="text-lg text-gray-300 leading-relaxed">

@@ -16,7 +16,7 @@ function ShoppingFooter() {
                 <HousePlug className="h-6 w-6" />
               </div>
               <span className="font-extrabold text-2xl text-white tracking-tight">
-                Ecommerce
+                SmartWear
               </span>
             </Link>
             <p className="text-slate-400 text-sm font-light max-w-sm leading-relaxed">
@@ -117,7 +117,7 @@ function ShoppingFooter() {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© 2026 Ecommerce Inc. All rights reserved.</p>
+          <p>© 2026 SmartWear Inc. All rights reserved.</p>
           <p className="flex items-center gap-1 font-medium">
             Designed with <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" /> for luxury online shopping.
           </p>

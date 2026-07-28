@@ -111,7 +111,7 @@ function ShoppingCheckout() {
           key: import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_test_TIyzNkkcytEawu",
           amount: amount,
           currency: currency || "INR",
-          name: "Ecommerce Store",
+          name: "SmartWear Store",
           description: "Order Payment",
           order_id: razorpayOrderId,
           handler: function (response) {
